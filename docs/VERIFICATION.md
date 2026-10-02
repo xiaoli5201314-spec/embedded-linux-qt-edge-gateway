@@ -43,6 +43,12 @@ make -C core -B test
 - **重连状态自动迁移**：测试显式设置 `f.state = UPLINK_DRAINING`；成功回调不自动切换该状态，不能用测试通过证明已完成上行集成。
 - **Qt 与部署**：未提供或测试图形界面、systemd 服务、安装脚本、远程发布和升级回退。
 - **其他质量指标**：未报告编译零警告、覆盖率、模糊测试、并发、内存检查、吞吐/延迟、长期运行或硬件性能。
-- **交叉编译与远端 CI**：此次不是 ARM 静态库构建；工作流文件的存在也不代表 GitHub Actions 已执行成功。
+- **交叉编译**：此次不是 ARM 静态库构建；远端主机 CI 结果独立记录于下节，不扩大为板级运行验证。
 
 文档与 CI 修改没有更改生产源文件、公开头文件、测试代码或 Makefile。后续修改这些文件后，应重新构建、执行并记录新的验证结果，不沿用本次检查数。
+
+## 远端自动测试
+
+2026-10-03 核对发布提交 `c6dc78e` 的 [GitHub Actions 记录](https://github.com/xiaoli5201314-spec/embedded-linux-qt-edge-gateway/actions/runs/37051370078)，状态为 `completed / success`。
+工作流在 Ubuntu 22.04 清理并执行 `make -C core test CC=gcc`。
+后续提交的实时状态以首页徽章和对应 Actions 记录为准；远端主机测试不包含串口电气层、Qt 或板级部署验收。
